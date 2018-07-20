@@ -557,6 +557,7 @@ def rename_param(comicid, comicname, issue, ofilename, comicyear=None, issueid=N
             #if comversion is None, remove it so it doesn't populate with 'None'
             if comversion == 'None':
                 chunk_f_f = re.sub('\$VolumeN', '', mylar.CONFIG.FILE_FORMAT)
+                chunk_f_f = chunk_f_f.strip().strip('\\').strip('/')
                 chunk_f = re.compile(r'\s+')
                 chunk_file_format = chunk_f.sub(' ', chunk_f_f)
                 logger.fdebug('No version # found for series, removing from filename')
@@ -566,6 +567,7 @@ def rename_param(comicid, comicname, issue, ofilename, comicyear=None, issueid=N
 
             if annualize is None:
                 chunk_f_f = re.sub('\$Annual', '', chunk_file_format)
+                chunk_f_f = chunk_f_f.strip().strip('\\').strip('/')
                 chunk_f = re.compile(r'\s+')
                 chunk_file_format = chunk_f.sub(' ', chunk_f_f)
                 logger.fdebug('not an annual - removing from filename paramaters')
