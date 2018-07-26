@@ -40,6 +40,13 @@ def movefiles(comicid, comlocation, imported):
                 logger.fdebug("Renaming files not enabled, keeping original filename(s)")
                 dstimp = os.path.join(comlocation, orig_filename)
 
+            if not os.path.exists(os.path.dirname(dstimp)):
+                logger.fdebug(os.path.dirname(dstimp) + ' does not exist - attempting to create...')
+                try:
+                    os.makedirs(os.path.dirname(dstimp), int(mylar.CONFIG.CHMOD_DIR))
+                except (OSError, IOError):
+                    logger.fdebug('Failed to create full directory path, but will try to move file anyway.')
+
             logger.info("moving " + srcimp + " ... to " + dstimp)
             try:
                 shutil.move(srcimp, dstimp)
